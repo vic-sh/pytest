@@ -36,3 +36,17 @@ def test_add_2(task):
     task_id = tasks.add(task)
     t_from_db = tasks.get(task_id)
     assert equivalent(t_from_db, task)
+
+
+@pytest.mark.parametrize('summary, owner, done',
+[('sleep', None, False),
+('wake', 'brian', False),
+('breathe', 'BRIAN', True),
+('eat eggs', 'BrIaN', False),
+])
+def test_add_3(summary, owner, done):
+    """Demonstrate parametrize with multiple parameters"""
+    task = Task(summary, owner, done)
+    task_id = tasks.add(task)
+    t_from_db = tasks.get(task_id)
+    assert equivalent(t_from_db, task)
