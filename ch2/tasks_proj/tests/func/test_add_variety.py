@@ -78,6 +78,16 @@ def test_add_5(task):
     assert equivalent(t_from_db, task)
 
 
+@pytest.mark.parametrize('task', [
+pytest.param(Task('create'), id='just summary'),
+pytest.param(Task('inspire', 'Michelle'), id='summary/owner'),
+pytest.param(Task('encourage', 'Michelle', True), id='summary/owner/done')])
+def test_add_6(task):
+    task_id = tasks.add(task)
+    t_from_db = tasks.get(task_id)
+    assert equivalent(t_from_db, task)
+
+
 @pytest.mark.parametrize('task', tasks_to_try, ids=task_ids)
 class TestAdd():
     """Demonstrate parametrize and test classes."""
