@@ -10,6 +10,20 @@ from tasks import Task
 
 
 @pytest.fixture()
+def db_with_3_tasks(tasks_db, tasks_just_a_few):
+    """Connected db with 3 tasks, all unique."""
+    for t in tasks_just_a_few:
+        tasks.add(t)
+
+
+@pytest.fixture()
+def db_with_multi_per_owner(tasks_db, tasks_mult_per_owner):
+    """Connected db with 9 tasks, 3 owners, all in 3 tasks."""
+    for t in tasks_mult_per_owner:
+        tasks.add(t)
+
+
+@pytest.fixture()
 def tasks_just_a_few():
 """All summaries and owners are unique."""
     return(Task('Write some code', 'Brian', True),
